@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .table-container {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+    }
+
+    th, td {
+      border: 1px solid black;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    th {
+      background-color: #d1000f;
+      color: white;
+      font-weight: bold;
+    }
+
+    .traffic-cell {
+      padding: 0;
+    }
+
+    .traffic-table {
+      width: 100%;
+      border: none;
+      margin: 0;
+    }
+
+    .traffic-table td {
+      border: none;
+      padding: 8px;
+    }
+
+    .green-row {
+      background-color: #a2d045;
+    }
+
+    .amber-row {
+      background-color: #ffbf00;
+    }
+
+    .red-row {
+      background-color: #ff9999;
+    }
+
+    .grey-row {
+      background-color: #cccccc;
+    }
+
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      table {
+        font-size: 14px;
+      }
+
+      .traffic-table td {
+        padding: 6px 4px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .title {
+        font-size: 1.5em;
+      }
+      table-container{
+        padding: 5rem;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      .traffic-table td {
+        padding: 4px 2px;
+      }
+    }
+
+    .title {
+      text-align: center;
+      color: #d1000f;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="title">Admin View - All Members</h1>
+  <div>
+  <% allMembers.forEach(member => { %>
+    <h2 style="text-align: center; margin-top: 2rem;">Member Name: <%= member.MemberName %></h2>
+    <div class="table-container">
+      <table>
+        <tr>
+          <th>Particulars</th>
+          <th>Target</th>
+          <th>Current Status</th>
+        </tr>
+        <tr>
+          <td>Members</td>
+          <td>56 (50+6)</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Chapter Growth in Business</td>
+          <td>1 Cr.</td>
+          <td><%= member.TYFCB %></td>
+        </tr>
+        <tr>
+          <td class="traffic-cell">
+            <table class="traffic-table">
+              <tr>
+                <td rowspan="4">Traffic Lights</td>
+                <td class="green-row">Green</td>
+              </tr>
+              <tr>
+                <td class="amber-row">Amber</td>
+              </tr>
+              <tr>
+                <td class="red-row">Red</td>
+              </tr>
+              <tr>
+                <td class="grey-row">Grey</td>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <table class="traffic-table">
+              <tr><td class="green-row">&gt; 10%</td></tr>
+              <tr><td class="amber-row">&gt; 20%</td></tr>
+              <tr><td class="red-row">&lt; 40%</td></tr>
+              <tr><td class="grey-row">&lt; 30%</td></tr>
+            </table>
+          </td>
+          <td>
+            <table class="traffic-table">
+              <tr><td class="green-row">21%</td></tr>
+              <tr><td class="amber-row">29%</td></tr>
+              <tr><td class="red-row">35%</td></tr>
+              <tr><td class="grey-row">15%</td></tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>Referrals</td>
+          <td>333</td>
+          <td>118</td>
+        </tr>
+        <tr>
+          <td>Visitors</td>
+          <td>50</td>
+          <td><%= member.V %></td>
+        </tr>
+        <tr>
+          <td>1-2-1s</td>
+          <td>167</td>
+          <td><%= member['1-2-1'] %></td>
+        </tr>
+        <tr>
+          <td>Testimonials</td>
+          <td>50</td>
+          <td><%= member.T %></td>
+        </tr>
+        <tr>
+          <td>Trainings</td>
+          <td>50</td>
+          <td><%= member.CEU %></td>
+        </tr>
+      </table>
+    </div>
+  <% }); %>
+</body>
+</html>

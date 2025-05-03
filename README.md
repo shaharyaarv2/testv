@@ -1,4 +1,4 @@
-# Node Express EJS App
+#  BNI App
 
 This project is a simple Node.js application using Express and EJS for rendering views. It includes a login page where users can enter their credentials.
 

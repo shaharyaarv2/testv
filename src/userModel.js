@@ -4,6 +4,7 @@ const memberSchema = new mongoose.Schema({
     MemberName: String,
     username: String,
     password: String,
+    isAdmin: { type: Boolean, default: false }, // Added isAdmin with default value
     P: Number,
     A: Number,
     L: Number,

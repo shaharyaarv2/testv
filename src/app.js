@@ -7,10 +7,11 @@ const indexRouter = require('./routes/index');
 
 const app = express();
 
-// MongoDB connection string
-const mongoURI = process.env.MONGO_URI;
-mongoose.connect(mongoURI)
-    .then(() => console.log('Connected to MongoDB Atlas'))
+const mongoURI = process.env.MONGO_URI || 'your-default-mongodb-uri';
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(async () => {
+        console.log('MongoDB connected');
+    })
     .catch(err => console.error('MongoDB connection error:', err));
 
 // View engine setup
