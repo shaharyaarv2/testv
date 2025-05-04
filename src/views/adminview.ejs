@@ -106,6 +106,21 @@
       font-size: 2em;
       margin-bottom: 20px;
     }
+
+    .whatsapp-button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #25D366;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .whatsapp-button:hover {
+      background-color: #1DA851;
+    }
   </style>
 </head>
 <body>
@@ -114,7 +129,7 @@
   <% allMembers.forEach(member => { %>
     <h2 style="text-align: center; margin-top: 2rem;">Member Name: <%= member.MemberName %></h2>
     <div class="table-container">
-      <table>
+      <table class="table-box">
         <tr>
           <th>Particulars</th>
           <th>Target</th>
@@ -191,7 +206,55 @@
           <td><%= member.CEU %></td>
         </tr>
       </table>
+      <!-- Add WhatsApp buttons -->
+      <button class="whatsapp-button" onclick="sendToWhatsApp(<%= JSON.stringify(member) %>)"">
+        Send as Text to WhatsApp
+      </button>
+      <button class="whatsapp-button" onclick="captureAndSendToWhatsApp('<%= member.MemberName %>')">
+        Send as Image to WhatsApp
+      </button>
     </div>
   <% }); %>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+  function sendToWhatsApp(member) {
+    // Format the table data into a message
+    const message = `Member Name: ${member.MemberName}
+      Members: 56 (50+6)
+      Chapter Growth in Business: ${member.TYFCB}
+      Referrals: 333 / ${member.V}
+      1-2-1s: 167 / ${member['1-2-1']}
+      Testimonials: 50 / ${member.T}
+      Trainings: 50 / ${member.CEU}
+    `;
+
+    // Encode the message for the WhatsApp API
+    const encodedMessage = encodeURIComponent(message);
+
+    // Open WhatsApp with the message
+    const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+  }
+
+  function captureAndSendToWhatsApp(memberName) {
+    // Select the table container
+    const tableContainer = document.querySelector(`.table-box`);
+
+    // Use html2canvas to capture the table as an image
+    html2canvas(tableContainer).then((canvas) => {
+      // Convert the canvas to a data URL (base64 image)
+      const imageData = canvas.toDataURL("image/png");
+
+      // Create a link to download the image
+      const link = document.createElement("a");
+      link.href = imageData;
+      link.download = `${memberName}-table.png`;
+      link.click();
+
+      // Inform the user to share the image manually on WhatsApp
+      alert("The table has been saved as an image. You can now share it on WhatsApp.");
+    });
+  }
+</script>
 </html>

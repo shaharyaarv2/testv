@@ -6,7 +6,7 @@ const members = require('./userModel.js');
 const indexRouter = require('./routes/index');
 
 const app = express();
-
+console.log(process.env.MONGO_URI)
 const mongoURI = process.env.MONGO_URI || 'your-default-mongodb-uri';
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(async () => {
